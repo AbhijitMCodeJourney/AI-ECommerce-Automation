@@ -49,7 +49,6 @@ public class CheckoutTest extends BaseTest {
 
         cartPage.clickCheckout();
 
-        // Debug information for Jenkins
         System.out.println(
                 "After checkout URL: " +
                         DriverFactory.getDriver().getCurrentUrl()
@@ -70,6 +69,24 @@ public class CheckoutTest extends BaseTest {
         );
 
         checkoutPage.clickContinue();
+
+        // Debug information after Continue
+        System.out.println(
+                "After continue URL: " +
+                        DriverFactory.getDriver().getCurrentUrl()
+        );
+
+        System.out.println(
+                "After continue Title: " +
+                        DriverFactory.getDriver().getTitle()
+        );
+
+        System.out.println(
+                "After continue Page Source contains finish: " +
+                        DriverFactory.getDriver()
+                                .getPageSource()
+                                .contains("finish")
+        );
 
         checkoutPage.clickFinish();
 

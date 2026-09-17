@@ -2,6 +2,7 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class DriverFactory {
 
@@ -12,12 +13,20 @@ public class DriverFactory {
         String browser = ConfigReader.getProperty("browser");
 
         if (browser.equalsIgnoreCase("chrome")) {
-            driver = new ChromeDriver();
+
+            ChromeOptions options = new ChromeOptions();
+
+            // More stable Chrome execution in Jenkins/CI environments
+            options.addArguments("--disable-notifications");
+            options.addArguments("--disable-popup-blocking");
+            options.addArguments("--disable-infobars");
+            options.addArguments("--start-maximized");
+
+            driver = new ChromeDriver(options);
+
         } else {
             throw new RuntimeException("Unsupported browser: " + browser);
         }
-
-        driver.manage().window().maximize();
     }
 
     public static WebDriver getDriver() {
@@ -25,6 +34,7 @@ public class DriverFactory {
     }
 
     public static void quitDriver() {
+
         if (driver != null) {
             driver.quit();
             driver = null;
