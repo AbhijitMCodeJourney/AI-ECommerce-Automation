@@ -1,7 +1,9 @@
-package pages;
+
+        package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,30 +28,64 @@ public class ProductPage {
 
     public ProductPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public void addBackpackToCart() {
+
+        WebElement backpack =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                backpackAddButton
+                        )
+                );
+
+        backpack.click();
+
         wait.until(
-                ExpectedConditions.elementToBeClickable(backpackAddButton)
-        ).click();
+                ExpectedConditions.visibilityOfElementLocated(
+                        cartBadge
+                )
+        );
     }
 
     public void addBikeLightToCart() {
+
+        WebElement bikeLight =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                bikeLightAddButton
+                        )
+                );
+
+        bikeLight.click();
+
         wait.until(
-                ExpectedConditions.elementToBeClickable(bikeLightAddButton)
-        ).click();
+                ExpectedConditions.visibilityOfElementLocated(
+                        cartBadge
+                )
+        );
     }
 
     public String getCartItemCount() {
+
         return wait.until(
-                ExpectedConditions.visibilityOfElementLocated(cartBadge)
+                ExpectedConditions.visibilityOfElementLocated(
+                        cartBadge
+                )
         ).getText();
     }
 
     public void clickCart() {
-        wait.until(
-                ExpectedConditions.elementToBeClickable(cartButton)
-        ).click();
+
+        WebElement cart =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(
+                                cartButton
+                        )
+                );
+
+        cart.click();
     }
 }
+
