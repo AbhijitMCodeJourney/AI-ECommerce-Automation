@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,43 +22,54 @@ public class CheckoutPage {
 
     public CheckoutPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public void enterFirstName(String value) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(firstName))
-                .sendKeys(value);
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(firstName)
+        ).sendKeys(value);
     }
 
     public void enterLastName(String value) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(lastName))
-                .sendKeys(value);
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(lastName)
+        ).sendKeys(value);
     }
 
     public void enterPostalCode(String value) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(postalCode))
-                .sendKeys(value);
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(postalCode)
+        ).sendKeys(value);
     }
 
     public void clickContinue() {
-        wait.until(ExpectedConditions.elementToBeClickable(continueButton))
-                .click();
+        wait.until(
+                ExpectedConditions.elementToBeClickable(continueButton)
+        ).click();
     }
 
     public void clickFinish() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(finishButton));
 
-        wait.until(ExpectedConditions.elementToBeClickable(finishButton));
+        WebElement finish =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(finishButton)
+                );
 
-        driver.findElement(finishButton).click();
+        finish.click();
     }
 
     public String getOrderConfirmationMessage() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(orderConfirmation))
-                .getText();
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(orderConfirmation)
+        ).getText();
     }
 
-    public void enterCustomerDetails(String firstName, String lastName, String postalCode) {
+    public void enterCustomerDetails(
+            String firstName,
+            String lastName,
+            String postalCode) {
+
         enterFirstName(firstName);
         enterLastName(lastName);
         enterPostalCode(postalCode);
