@@ -49,6 +49,17 @@ public class CheckoutTest extends BaseTest {
 
         cartPage.clickCheckout();
 
+        // Debug information for Jenkins
+        System.out.println(
+                "After checkout URL: " +
+                        DriverFactory.getDriver().getCurrentUrl()
+        );
+
+        System.out.println(
+                "After checkout Title: " +
+                        DriverFactory.getDriver().getTitle()
+        );
+
         CheckoutPage checkoutPage =
                 new CheckoutPage(DriverFactory.getDriver());
 
