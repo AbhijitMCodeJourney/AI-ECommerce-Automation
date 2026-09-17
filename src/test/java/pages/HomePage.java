@@ -49,6 +49,10 @@ public class HomePage {
 
     public void clickLogout() {
         wait.until(
+                ExpectedConditions.visibilityOfElementLocated(logoutLink)
+        );
+
+        wait.until(
                 ExpectedConditions.elementToBeClickable(logoutLink)
         ).click();
     }
