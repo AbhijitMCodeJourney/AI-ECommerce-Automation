@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,17 +14,10 @@ public class HomePage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private By pageTitle =
-            By.className("title");
-
-    private By shoppingCart =
-            By.className("shopping_cart_link");
-
-    private By menuButton =
-            By.id("react-burger-menu-btn");
-
-    private By logoutLink =
-            By.id("logout_sidebar_link");
+    private By pageTitle = By.className("title");
+    private By shoppingCart = By.className("shopping_cart_link");
+    private By menuButton = By.id("react-burger-menu-btn");
+    private By logoutLink = By.id("logout_sidebar_link");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -46,13 +40,21 @@ public class HomePage {
 
         WebElement menu =
                 wait.until(
-                        ExpectedConditions.elementToBeClickable(menuButton)
+                        ExpectedConditions.presenceOfElementLocated(menuButton)
                 );
 
-        menu.click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});",
+                menu
+        );
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();",
+                menu
+        );
 
         wait.until(
-                ExpectedConditions.elementToBeClickable(logoutLink)
+                ExpectedConditions.visibilityOfElementLocated(logoutLink)
         );
     }
 
@@ -60,9 +62,21 @@ public class HomePage {
 
         WebElement logout =
                 wait.until(
-                        ExpectedConditions.elementToBeClickable(logoutLink)
+                        ExpectedConditions.visibilityOfElementLocated(logoutLink)
                 );
 
-        logout.click();
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block: 'center'});",
+                logout
+        );
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();",
+                logout
+        );
+
+        wait.until(
+                ExpectedConditions.urlContains("saucedemo.com")
+        );
     }
 }
