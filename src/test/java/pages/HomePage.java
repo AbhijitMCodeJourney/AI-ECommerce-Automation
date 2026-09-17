@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,7 +27,7 @@ public class HomePage {
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     public String getPageTitle() {
@@ -42,18 +43,26 @@ public class HomePage {
     }
 
     public void openMenu() {
-        wait.until(
-                ExpectedConditions.elementToBeClickable(menuButton)
-        ).click();
-    }
 
-    public void clickLogout() {
-        wait.until(
-                ExpectedConditions.visibilityOfElementLocated(logoutLink)
-        );
+        WebElement menu =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(menuButton)
+                );
+
+        menu.click();
 
         wait.until(
                 ExpectedConditions.elementToBeClickable(logoutLink)
-        ).click();
+        );
+    }
+
+    public void clickLogout() {
+
+        WebElement logout =
+                wait.until(
+                        ExpectedConditions.elementToBeClickable(logoutLink)
+                );
+
+        logout.click();
     }
 }
